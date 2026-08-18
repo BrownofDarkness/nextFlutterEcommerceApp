@@ -1,0 +1,110 @@
+[
+  {
+    "id": "p001",
+    "name": "Casque audio sans fil",
+    "description": "Réduction de bruit active, autonomie 30h, connectivité Bluetooth 5.3.",
+    "price": 249.99,
+    "imageUrl": "https://picsum.photos/seed/p001/600/600",
+    "category": "electronics",
+    "rating": 4.6
+  },
+  {
+    "id": "p002",
+    "name": "Montre connectée sport",
+    "description": "GPS intégré, suivi cardiaque, étanche 50m, écran AMOLED.",
+    "price": 189.00,
+    "imageUrl": "https://picsum.photos/seed/p002/600/600",
+    "category": "electronics",
+    "rating": 4.3
+  },
+  {
+    "id": "p003",
+    "name": "Clavier mécanique RGB",
+    "description": "Switches tactiles, rétroéclairage RGB personnalisable, USB-C détachable.",
+    "price": 129.50,
+    "imageUrl": "https://picsum.photos/seed/p003/600/600",
+    "category": "electronics",
+    "rating": 4.7
+  },
+  {
+    "id": "p004",
+    "name": "Veste en jean oversize",
+    "description": "Coupe ample, coton bio, coloris délavé, unisexe.",
+    "price": 79.90,
+    "imageUrl": "https://picsum.photos/seed/p004/600/600",
+    "category": "clothing",
+    "rating": 4.1
+  },
+  {
+    "id": "p005",
+    "name": "Sneakers running",
+    "description": "Semelle amortissante, empeigne respirante, disponible en 3 coloris.",
+    "price": 119.00,
+    "imageUrl": "https://picsum.photos/seed/p005/600/600",
+    "category": "clothing",
+    "rating": 4.5
+  },
+  {
+    "id": "p006",
+    "name": "T-shirt graphique premium",
+    "description": "Coton épais 220g/m², impression sérigraphie, coupe droite.",
+    "price": 34.99,
+    "imageUrl": "https://picsum.photos/seed/p006/600/600",
+    "category": "clothing",
+    "rating": 4.0
+  },
+  {
+    "id": "p007",
+    "name": "Roman graphique - Édition limitée",
+    "description": "480 pages, couverture rigide, illustrations couleur pleine page.",
+    "price": 42.00,
+    "imageUrl": "https://picsum.photos/seed/p007/600/600",
+    "category": "books",
+    "rating": 4.8
+  },
+  {
+    "id": "p008",
+    "name": "Guide de développement Flutter",
+    "description": "Architecture avancée, state management, tests. 3ème édition mise à jour.",
+    "price": 39.90,
+    "imageUrl": "https://picsum.photos/seed/p008/600/600",
+    "category": "books",
+    "rating": 4.6
+  },
+  {
+    "id": "p009",
+    "name": "Essai philosophique moderne",
+    "description": "Réflexion sur la technologie et la société. Prix littéraire 2025.",
+    "price": 24.50,
+    "imageUrl": "https://picsum.photos/seed/p009/600/600",
+    "category": "books",
+    "rating": 4.2
+  },
+  {
+    "id": "p010",
+    "name": "Lampe de bureau LED",
+    "description": "Bras articulé, intensité et température de couleur réglables, port USB.",
+    "price": 89.00,
+    "imageUrl": "https://picsum.photos/seed/p010/600/600",
+    "category": "home",
+    "rating": 4.4
+  },
+  {
+    "id": "p011",
+    "name": "Bougie parfumée artisanale",
+    "description": "Cire de soja, mèche coton, 45h de combustion, senteur bois de santal.",
+    "price": 28.00,
+    "imageUrl": "https://picsum.photos/seed/p011/600/600",
+    "category": "home",
+    "rating": 4.5
+  },
+  {
+    "id": "p012",
+    "name": "Plaid en laine mérinos",
+    "description": "180x130cm, laine mérinos douce, motif chevron, hypoallergénique.",
+    "price": 149.90,
+    "imageUrl": "https://picsum.photos/seed/p012/600/600",
+    "category": "home",
+    "rating": 4.7
+  }
+]
