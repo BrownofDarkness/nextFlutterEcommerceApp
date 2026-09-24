@@ -26,8 +26,9 @@ Direction artistique **Studio Noir** — dark premium éditorial, hairline borde
 | `flutter_riverpod` | `^3.4.2` | State management (Notifier / AsyncNotifier / FutureProvider) |
 | `go_router` | `^17.5.0` | Navigation déclarative avec `StatefulShellRoute.indexedStack` |
 | `shared_preferences` | `^2.5.5` | Persistance locale des favoris |
-| `intl` | `^0.20.3` | Formatage devise + dates en français |
+| `intl` | `^0.20.2` | Formatage devise + dates (FR et EN) |
 | `equatable` | `^2.1.0` | Égalité par valeur (critique pour Riverpod) |
+| `cached_network_image` | `^3.4.1` | Cache disque + lazy loading des images réseau |
 
 Style Riverpod : **manuel classique** (Notifier / AsyncNotifier — les remplaçants modernes des `StateNotifier` dépréciés). Pas de code generation.
 
@@ -190,49 +191,92 @@ Zéro `FutureBuilder`. Zéro if/else sur "en cours de chargement". Tout passe pa
 
 ## Tests
 
-**32 tests unitaires — 100% passent.**
+**54 tests — 100% passent.**
 
 ```bash
 flutter test
 ```
 
-Découpage :
+### Tests unitaires (32)
 
-- **`cart_notifier_test.dart`** (11 tests) — add / remove / quantities / clear + providers dérivés
-- **`favorites_notifier_test.dart`** (9 tests) — init async depuis prefs / toggle / persistance / isFavorite / join
-- **`filter_notifier_test.dart`** (10 tests) — mutations + filteredProductsProvider (category / search / sort / combinés)
-- **`widget_test.dart`** (1 test) — smoke test l'app boot
+| Fichier | Tests | Couverture |
+|---|---|---|
+| `cart_notifier_test.dart` | 12 | add / remove / quantities / clear + providers dérivés |
+| `favorites_notifier_test.dart` | 9 | init async / toggle / persistance / isFavorite / join |
+| `filter_notifier_test.dart` | 10 | mutations + filteredProductsProvider (catégorie / search / sort) |
+| `widget_test.dart` | 1 | smoke test boot de l'app |
+
+### Tests widget (20)
+
+| Fichier | Tests | Couverture |
+|---|---|---|
+| `product_card_test.dart` | 4 | nom, prix, cœur vide, cœur plein |
+| `cart_item_tile_test.dart` | 4 | nom, sous-total, décrement désactivé à qty=1, incrément actif |
+| `cart_page_test.dart` | 6 | titre, empty state, ajout d'items, total |
+| `favorites_page_test.dart` | 3 | titre, EmptyView, ProductCards |
+| `empty_view_test.dart` | 3 | titre, subtitle, bouton CTA |
+
+### Tests d'intégration (2)
+
+Fichier : `integration_test/app_test.dart`
+- Boot complet de l'app → onglet Catalogue visible
+- Navigation vers l'onglet Panier
 
 **Techniques Riverpod démontrées** :
 - `ProviderContainer` isolé par test (pas de widget tree)
 - `overrideWithValue(prefs)` pour SharedPreferences mocké
 - `overrideWith((ref) async => ...)` pour FutureProvider fake
 - `container.read(asyncProvider.future)` pour attendre l'init d'un AsyncNotifier
+- `ProviderScope(overrides: [...], child: testMaterialApp(...))` dans les tests widget
 
 ---
 
 ## Getting started
 
-Prérequis : **Flutter 3.x**, **Dart 3.9+**.
+Prérequis : **Flutter ≥ 3.32**, **Dart ≥ 3.9**.
 
 ```bash
 # 1. Cloner
-git clone <repo-url>
+git clone https://github.com/BrownofDarkness/nextFlutterEcommerceApp.git
 cd nextFlutterEcommerceApp
 
 # 2. Dépendances
 flutter pub get
 
-# 3. Lancer
-flutter run           # sur émulateur/device connecté
-flutter run -d chrome # sur Chrome pour tester rapidement
+# 3. Lancer (choisir la cible)
+flutter run                    # Android (émulateur ou device USB)
+flutter run -d ios             # iOS Simulator / device
+flutter run -d chrome          # Web (rapide pour itérer)
+flutter run -d windows         # Desktop Windows
 
-# 4. Tests
+# 4. Tests unitaires + widget
 flutter test
 
-# 5. Analyse statique
+# 5. Tests d'intégration (requiert un device/émulateur connecté)
+flutter test integration_test/app_test.dart
+
+# 6. Analyse statique
 flutter analyze
 ```
+
+### Build Android (APK)
+
+```bash
+flutter build apk --debug        # APK debug rapide
+flutter build apk --release      # APK release (nécessite une keystore)
+# → build/app/outputs/flutter-apk/app-debug.apk
+```
+
+### Build iOS (IPA)
+
+```bash
+flutter build ios --release       # requiert Xcode + compte développeur Apple
+```
+
+### APK de démonstration
+
+L'APK debug est produit automatiquement par le CI GitHub Actions à chaque push sur `main`.
+Téléchargeable depuis l'onglet **Actions → Build APK → Artifacts → next-shop-debug-apk**.
 
 ---
 
@@ -278,6 +322,14 @@ Direction artistique générée via **Google Stitch** avec un prompt sur-mesure 
 | Utiliser `AsyncValue` pour l'async | Systématique — voir tableau des providers |
 | Données mockées (JSON / fake API) | `assets/products.json` + `ProductLocalSource` |
 | Bonus : animation sur ajout panier | SnackBar flottant via `ref.listen(cartItemCountProvider)` |
+| **Tests unitaires (≥ 10)** | 32 tests — `test/providers/` |
+| **Tests widget (≥ 5)** | 20 tests — `test/widgets/` (ProductCard, CartItemTile, CartPage, FavoritesPage, EmptyView) |
+| **Tests d'intégration (≥ 2)** | 2 tests — `integration_test/app_test.dart` |
+| **Accessibilité** | `Semantics` + `tooltip` sur tous les éléments interactifs sans label visible |
+| **Internationalisation FR + EN** | `AppLocalizations` + ARB files, locale résolue depuis la langue de l'appareil |
+| **Images lazy-loading + cache** | `CachedNetworkImage` sur toutes les images réseau |
+| **CI/CD** | GitHub Actions : analyze → test → build APK (`.github/workflows/ci.yml`) |
+| **CHANGELOG.md** | 3 versions documentées (v1.0.0, v1.1.0, v1.2.0) |
 
 ---
 

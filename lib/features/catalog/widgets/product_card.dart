@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -44,13 +45,12 @@ class ProductCard extends ConsumerWidget {
                 children: [
                   AspectRatio(
                     aspectRatio: 1,
-                    child: Image.network(
-                      product.imageUrl,
+                    child: CachedNetworkImage(
+                      imageUrl: product.imageUrl,
                       fit: BoxFit.cover,
-                      loadingBuilder: (_, child, progress) => progress == null
-                          ? child
-                          : const ColoredBox(color: AppTheme.surfaceSubtle),
-                      errorBuilder: (_, _, _) => const ColoredBox(
+                      placeholder: (_, _) =>
+                          const ColoredBox(color: AppTheme.surfaceSubtle),
+                      errorWidget: (_, _, _) => const ColoredBox(
                         color: AppTheme.surfaceSubtle,
                         child: Icon(Icons.broken_image_outlined,
                             color: AppTheme.textTertiary),

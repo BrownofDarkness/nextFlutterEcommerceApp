@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -210,13 +211,12 @@ class _HeroImage extends StatelessWidget {
     return SizedBox(
       height: 400,
       width: double.infinity,
-      child: Image.network(
-        imageUrl,
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
         fit: BoxFit.cover,
-        loadingBuilder: (_, child, progress) => progress == null
-            ? child
-            : const ColoredBox(color: AppTheme.surfaceSubtle),
-        errorBuilder: (_, _, _) => const ColoredBox(
+        placeholder: (_, _) =>
+            const ColoredBox(color: AppTheme.surfaceSubtle),
+        errorWidget: (_, _, _) => const ColoredBox(
           color: AppTheme.surfaceSubtle,
           child: Icon(Icons.broken_image_outlined,
               color: AppTheme.textTertiary, size: 48),

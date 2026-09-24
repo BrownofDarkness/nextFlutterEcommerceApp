@@ -12,10 +12,11 @@ import 'l10n/app_localizations.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Load French locale data for `intl` — required before any DateFormat call
-  // targeting `fr_FR`. Only loading the one locale we need keeps the binary
-  // lean (the full locale bundle is ~2MB).
-  await initializeDateFormatting('fr_FR', null);
+  // Load locale data for intl — required before any DateFormat call.
+  await Future.wait([
+    initializeDateFormatting('fr_FR', null),
+    initializeDateFormatting('en', null),
+  ]);
 
   final prefs = await SharedPreferences.getInstance();
 
@@ -40,8 +41,13 @@ class NextShopApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       darkTheme: AppTheme.dark(),
       routerConfig: appRouter,
-      locale: const Locale('fr'),
       supportedLocales: const [Locale('fr'), Locale('en')],
+      localeResolutionCallback: (deviceLocale, supported) {
+        for (final locale in supported) {
+          if (deviceLocale?.languageCode == locale.languageCode) return locale;
+        }
+        return const Locale('fr');
+      },
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
