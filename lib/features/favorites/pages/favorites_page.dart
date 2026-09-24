@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/router/route_names.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/empty_view.dart';
 import '../../../shared/widgets/error_view.dart';
 import '../../catalog/widgets/product_card.dart';
@@ -26,6 +27,7 @@ class FavoritesPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final favoritesAsync = ref.watch(favoriteProductsProvider);
     final text = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       body: SafeArea(
@@ -38,10 +40,10 @@ class FavoritesPage extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Favoris', style: text.headlineLarge),
+                    Text(l10n.favoritesTitle, style: text.headlineLarge),
                     const SizedBox(height: 4),
                     Text(
-                      _countLabel(favoritesAsync.value?.length),
+                      l10n.savedProducts(favoritesAsync.value?.length),
                       style: text.bodySmall,
                     ),
                   ],
@@ -65,10 +67,9 @@ class FavoritesPage extends ConsumerWidget {
                       hasScrollBody: false,
                       child: EmptyView(
                         icon: Icons.favorite_border_rounded,
-                        title: 'Aucun favori pour le moment',
-                        subtitle:
-                            'Ajoutez des produits à vos favoris depuis le catalogue.',
-                        actionLabel: 'Découvrir le catalogue',
+                        title: l10n.favoritesEmpty,
+                        subtitle: l10n.favoritesEmptySubtitle,
+                        actionLabel: l10n.discoverCatalog,
                         onAction: () => context.go(RouteNames.catalog),
                       ),
                     );
@@ -120,10 +121,4 @@ class FavoritesPage extends ConsumerWidget {
     );
   }
 
-  static String _countLabel(int? count) {
-    if (count == null) return 'Chargement…';
-    if (count == 0) return 'Aucun produit sauvegardé';
-    if (count == 1) return '1 produit sauvegardé';
-    return '$count produits sauvegardés';
-  }
 }

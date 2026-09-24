@@ -1,0 +1,22 @@
+{
+  "@@locale": "fr",
+  "tabCatalog": "Catalogue",
+  "tabCart": "Panier",
+  "tabFavorites": "Favoris",
+  "tabProfile": "Profil",
+  "cartTitle": "Panier",
+  "cartNoItems": "Aucun article",
+  "cartOneItem": "1 article",
+  "cartItems": "{count} articles",
+  "@cartItems": { "placeholders": { "count": { "type": "int" } } },
+  "cartEmpty": "Votre panier est vide",
+  "cartEmptySubtitle": "Découvrez notre catalogue et ajoutez vos premiers produits.",
+  "discoverCatalog": "Découvrir le catalogue",
+  "favoritesTitle": "Favoris",
+  "favoritesEmpty": "Aucun favori pour le moment",
+  "favoritesEmptySubtitle": "Ajoutez des produits à vos favoris depuis le catalogue.",
+  "savedProducts": "{count} produits sauvegardés",
+  "@savedProducts": { "placeholders": { "count": { "type": "int" } } },
+  "retry": "Réessayer",
+  "remove": "Retirer"
+}

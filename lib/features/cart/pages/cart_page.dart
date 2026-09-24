@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/router/route_names.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/empty_view.dart';
 import '../providers/cart_provider.dart';
 import '../widgets/cart_item_tile.dart';
@@ -45,22 +46,24 @@ class _Header extends StatelessWidget {
 
   final int count;
 
+  String _subtitle(AppLocalizations l10n) => switch (count) {
+        0 => l10n.cartNoItems,
+        1 => l10n.cartOneItem,
+        _ => l10n.cartItems(count),
+      };
+
   @override
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
-    final subtitle = switch (count) {
-      0 => 'Aucun article',
-      1 => '1 article',
-      _ => '$count articles',
-    };
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Panier', style: text.headlineLarge),
+          Text(l10n.cartTitle, style: text.headlineLarge),
           const SizedBox(height: 4),
-          Text(subtitle, style: text.bodySmall),
+          Text(_subtitle(l10n), style: text.bodySmall),
         ],
       ),
     );
@@ -70,12 +73,12 @@ class _Header extends StatelessWidget {
 class _EmptyBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return EmptyView(
       icon: Icons.shopping_bag_outlined,
-      title: 'Votre panier est vide',
-      subtitle:
-          'Découvrez notre catalogue et ajoutez vos premiers produits.',
-      actionLabel: 'Découvrir le catalogue',
+      title: l10n.cartEmpty,
+      subtitle: l10n.cartEmptySubtitle,
+      actionLabel: l10n.discoverCatalog,
       onAction: () => context.go(RouteNames.catalog),
     );
   }

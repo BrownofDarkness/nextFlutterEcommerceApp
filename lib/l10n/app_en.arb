@@ -1,0 +1,22 @@
+{
+  "@@locale": "en",
+  "tabCatalog": "Catalog",
+  "tabCart": "Cart",
+  "tabFavorites": "Favorites",
+  "tabProfile": "Profile",
+  "cartTitle": "Cart",
+  "cartNoItems": "No items",
+  "cartOneItem": "1 item",
+  "cartItems": "{count} items",
+  "@cartItems": { "placeholders": { "count": { "type": "int" } } },
+  "cartEmpty": "Your cart is empty",
+  "cartEmptySubtitle": "Browse our catalog and add your first products.",
+  "discoverCatalog": "Discover catalog",
+  "favoritesTitle": "Favorites",
+  "favoritesEmpty": "No favorites yet",
+  "favoritesEmptySubtitle": "Add products to your favorites from the catalog.",
+  "savedProducts": "{count} saved products",
+  "@savedProducts": { "placeholders": { "count": { "type": "int" } } },
+  "retry": "Retry",
+  "remove": "Remove"
+}

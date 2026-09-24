@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/cart/providers/cart_provider.dart';
+import '../../l10n/app_localizations.dart';
 
 /// Root shell containing the bottom navigation and hosting the current tab's
 /// navigator via [navigationShell].
@@ -17,6 +18,7 @@ class MainScaffold extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cartCount = ref.watch(cartItemCountProvider);
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       body: navigationShell,
@@ -24,29 +26,28 @@ class MainScaffold extends ConsumerWidget {
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: (index) => navigationShell.goBranch(
           index,
-          // Tapping the currently active tab resets it to its initial location.
           initialLocation: index == navigationShell.currentIndex,
         ),
         destinations: [
-          const NavigationDestination(
-            icon: Icon(Icons.storefront_outlined),
-            selectedIcon: Icon(Icons.storefront),
-            label: 'Catalogue',
+          NavigationDestination(
+            icon: const Icon(Icons.storefront_outlined),
+            selectedIcon: const Icon(Icons.storefront),
+            label: l10n.tabCatalog,
           ),
           NavigationDestination(
             icon: _CartIcon(count: cartCount, filled: false),
             selectedIcon: _CartIcon(count: cartCount, filled: true),
-            label: 'Panier',
+            label: l10n.tabCart,
           ),
-          const NavigationDestination(
-            icon: Icon(Icons.favorite_border),
-            selectedIcon: Icon(Icons.favorite),
-            label: 'Favoris',
+          NavigationDestination(
+            icon: const Icon(Icons.favorite_border),
+            selectedIcon: const Icon(Icons.favorite),
+            label: l10n.tabFavorites,
           ),
-          const NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profil',
+          NavigationDestination(
+            icon: const Icon(Icons.person_outline),
+            selectedIcon: const Icon(Icons.person),
+            label: l10n.tabProfile,
           ),
         ],
       ),
