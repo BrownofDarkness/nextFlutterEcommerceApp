@@ -146,6 +146,7 @@ class _CompactStepper extends StatelessWidget {
         children: [
           _StepperButton(
             icon: Icons.remove_rounded,
+            label: 'Diminuer la quantité',
             onTap: onDecrement,
           ),
           SizedBox(
@@ -158,6 +159,7 @@ class _CompactStepper extends StatelessWidget {
           ),
           _StepperButton(
             icon: Icons.add_rounded,
+            label: 'Augmenter la quantité',
             onTap: onIncrement,
           ),
         ],
@@ -167,26 +169,36 @@ class _CompactStepper extends StatelessWidget {
 }
 
 class _StepperButton extends StatelessWidget {
-  const _StepperButton({required this.icon, required this.onTap});
+  const _StepperButton({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
 
   final IconData icon;
+  final String label;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final enabled = onTap != null;
-    return Material(
-      color: Colors.transparent,
-      shape: const CircleBorder(),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(6),
-          child: Icon(
-            icon,
-            size: 18,
-            color: enabled ? AppTheme.textPrimary : AppTheme.textTertiary,
+    return Semantics(
+      label: label,
+      button: true,
+      enabled: enabled,
+      child: Material(
+        color: Colors.transparent,
+        shape: const CircleBorder(),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: Icon(
+              icon,
+              size: 18,
+              color: enabled ? AppTheme.textPrimary : AppTheme.textTertiary,
+            ),
           ),
         ),
       ),

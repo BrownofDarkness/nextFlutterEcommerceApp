@@ -23,7 +23,10 @@ class ProductCard extends ConsumerWidget {
     final text = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
 
-    return Material(
+    return Semantics(
+      label: product.name,
+      button: onTap != null,
+      child: Material(
       color: AppTheme.surface,
       borderRadius: BorderRadius.circular(16),
       clipBehavior: Clip.antiAlias,
@@ -109,6 +112,7 @@ class ProductCard extends ConsumerWidget {
           ),
         ),
       ),
+    ),
     );
   }
 }
@@ -122,7 +126,10 @@ class _FavoriteToggle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Material(
+    return Semantics(
+      label: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris',
+      button: true,
+      child: Material(
       color: Colors.black.withValues(alpha: 0.45),
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
@@ -139,6 +146,7 @@ class _FavoriteToggle extends ConsumerWidget {
           ),
         ),
       ),
+    ),
     );
   }
 }

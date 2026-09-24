@@ -161,12 +161,16 @@ class _DetailContentState extends ConsumerState<_DetailContent> {
                 children: [
                   _GhostCircleButton(
                     icon: Icons.arrow_back_rounded,
+                    label: 'Retour',
                     onTap: () => context.pop(),
                   ),
                   _GhostCircleButton(
                     icon: isFavorite
                         ? Icons.favorite
                         : Icons.favorite_border_rounded,
+                    label: isFavorite
+                        ? 'Retirer des favoris'
+                        : 'Ajouter aux favoris',
                     iconColor: isFavorite ? scheme.primary : Colors.white,
                     onTap: () => ref
                         .read(favoritesProvider.notifier)
@@ -226,24 +230,30 @@ class _GhostCircleButton extends StatelessWidget {
   const _GhostCircleButton({
     required this.icon,
     required this.onTap,
+    required this.label,
     this.iconColor = Colors.white,
   });
 
   final IconData icon;
   final VoidCallback onTap;
+  final String label;
   final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.black.withValues(alpha: 0.45),
-      shape: const CircleBorder(),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Icon(icon, size: 22, color: iconColor),
+    return Semantics(
+      label: label,
+      button: true,
+      child: Material(
+        color: Colors.black.withValues(alpha: 0.45),
+        shape: const CircleBorder(),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Icon(icon, size: 22, color: iconColor),
+          ),
         ),
       ),
     );
@@ -272,6 +282,7 @@ class _QuantityStepper extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.remove_rounded, size: 20),
             onPressed: value > 1 ? () => onChanged(value - 1) : null,
+            tooltip: 'Diminuer la quantité',
           ),
           SizedBox(
             width: 32,
@@ -284,6 +295,7 @@ class _QuantityStepper extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.add_rounded, size: 20),
             onPressed: () => onChanged(value + 1),
+            tooltip: 'Augmenter la quantité',
           ),
         ],
       ),
